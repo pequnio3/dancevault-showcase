@@ -175,49 +175,20 @@ main > section, header.hero { max-width: var(--max-width); margin: 0 auto; paddi
 .feature-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 48px;
+  gap: 40px;
   margin: 0 0 48px;
 }
 @media (min-width: 768px) {
-  .feature-grid { grid-template-columns: 1fr 1fr; gap: 64px 48px; }
+  .feature-grid { grid-template-columns: 1fr 1fr 1fr; gap: 56px 24px; }
 }
-.feature-card {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "title"
-    "desc"
-    "image";
-  gap: 8px;
-}
-.feature-card h3     { grid-area: title; color: var(--text); margin: 0; }
-.feature-card p      { grid-area: desc;  color: var(--text-muted); margin: 0; }
-.feature-card figure { grid-area: image; margin: 8px 0 0; }
+.feature-card { display: grid; gap: 12px; }
+.feature-card h3     { color: var(--text); margin: 0; }
+.feature-card figure { margin: 0; }
 .feature-card img {
   width: 100%;
   border-radius: 18px;
   border: 1px solid var(--border);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-}
-/* Desktop: side-by-side, image alternates outside per row.
-   Odd cards (left column) → image left. Even cards (right column) → image right.
-   Result: images bookend each row; text meets in the middle. */
-@media (min-width: 768px) {
-  .feature-card {
-    grid-template-columns: 270px 1fr;
-    grid-template-areas:
-      "image title"
-      "image desc";
-    gap: 8px 28px;
-    align-content: center;
-  }
-  .feature-card figure { margin: 0; align-self: center; }
-  .feature-card:nth-child(even) {
-    grid-template-columns: 1fr 270px;
-    grid-template-areas:
-      "title image"
-      "desc  image";
-  }
 }
 
 .plus-more-label { font-size: 14px; color: var(--text-muted); margin: 0 0 12px; }
