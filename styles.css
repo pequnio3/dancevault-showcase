@@ -56,14 +56,29 @@ main > section, header.hero { max-width: var(--max-width); margin: 0 auto; paddi
   [data-reveal], [data-reveal].is-visible { opacity: 1; transform: none; transition: none; }
 }
 
-/* HERO */
+/* HERO
+   Layout flips to two-column at 900px (not the base 768px breakpoint) — the
+   phone screenshot needs more room alongside text to avoid feeling cramped on
+   tablets. Uses named grid areas so the screenshot can span all text rows in
+   the right column. */
 .hero {
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-areas:
+    "eyebrow"
+    "display"
+    "lede"
+    "chips"
+    "shot";
   gap: 32px;
   padding-top: 112px;
 }
+.hero .eyebrow         { grid-area: eyebrow; }
+.hero .display         { grid-area: display; }
+.hero .lede            { grid-area: lede; }
+.hero .stat-chips      { grid-area: chips; }
+.hero .hero-screenshot { grid-area: shot; }
 .hero .eyebrow {
   font-size: 14px;
   font-weight: 500;
@@ -121,9 +136,14 @@ main > section, header.hero { max-width: var(--max-width); margin: 0 auto; paddi
 @media (min-width: 900px) {
   .hero {
     grid-template-columns: 1.4fr 1fr;
-    align-items: center;
-    gap: 64px;
+    grid-template-areas:
+      "eyebrow shot"
+      "display shot"
+      "lede    shot"
+      "chips   shot";
+    align-items: start;
+    gap: 32px 64px;
   }
-  .hero .hero-screenshot { justify-self: end; }
+  .hero .hero-screenshot { justify-self: end; align-self: center; }
   .hero .hero-screenshot img { max-width: 320px; }
 }
