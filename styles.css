@@ -175,24 +175,21 @@ main > section, header.hero { max-width: var(--max-width); margin: 0 auto; paddi
 .feature-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 32px;
+  gap: 40px;
   margin: 0 0 48px;
 }
 @media (min-width: 768px) {
-  .feature-grid { grid-template-columns: 1fr 1fr; gap: 48px 32px; }
+  .feature-grid { grid-template-columns: 1fr 1fr 1fr; gap: 48px 24px; }
 }
 .feature-card {
   display: grid;
-  grid-template-columns: 220px 1fr;
-  grid-template-areas:
-    "title title"
-    "image desc";
-  gap: 12px 20px;
-  align-items: start;
+  grid-template-rows: auto auto 1fr;
+  gap: 8px;
+  align-content: start;
 }
-.feature-card h3     { grid-area: title; color: var(--text); }
-.feature-card figure { grid-area: image; margin: 0; }
-.feature-card p      { grid-area: desc;  color: var(--text-muted); margin: 0; }
+.feature-card h3     { color: var(--text); margin: 0; }
+.feature-card p      { color: var(--text-muted); margin: 0; }
+.feature-card figure { margin: 8px 0 0; }
 .feature-card img {
   width: 100%;
   border-radius: 18px;
@@ -210,7 +207,7 @@ main > section, header.hero { max-width: var(--max-width); margin: 0 auto; paddi
   border-radius: 999px;
 }
 @media (max-width: 480px) {
-  .feature-card { grid-template-columns: 120px 1fr; gap: 10px 14px; }
+  .feature-card figure { margin-top: 4px; }
 }
 
 /* ENGINEERING */
