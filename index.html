@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DanceVault — Blake Carpenter</title>
+  <meta name="description" content="DanceVault — a mobile app for capturing, cataloging, and practicing dance moves. Built solo, end-to-end, in under 8 weeks. By Blake Carpenter." />
+  <meta property="og:title" content="DanceVault — Blake Carpenter" />
+  <meta property="og:description" content="A mobile app for capturing, cataloging, and practicing dance moves. Built solo in under 8 weeks." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="hero" data-reveal>
+  <p class="eyebrow">Blake Carpenter</p>
+  <h1 class="display">DanceVault</h1>
+  <p class="lede">A mobile app for capturing, cataloging, and practicing dance moves. Built solo, end-to-end, in under 8 weeks.</p>
+  <ul class="stat-chips" aria-label="Project stats">
+    <li><strong>1,275</strong> commits</li>
+    <li><strong>~7</strong> weeks</li>
+    <li><strong>solo</strong> · full-stack</li>
+  </ul>
+  <figure class="hero-screenshot" aria-hidden="true">
+    <img src="assets/screenshots/organize-videos.png" alt="" loading="eager" width="320" />
+  </figure>
+</header>
+
+<main>
+
+  <section class="features" data-reveal aria-labelledby="features-heading">
+    <h2 id="features-heading">What it does</h2>
+    <p class="section-lede">DanceVault is for dancers who want to capture moves once and drill them forever. Record or import short clips, anchor notes to specific beats, organize into collections, and play them back with metronome-aligned counts.</p>
+
+    <ol class="feature-grid">
+      <li class="feature-card">
+        <figure><img src="assets/screenshots/organize-videos.png" alt="DanceVault profile screen showing video library and collections tabs" loading="lazy" /></figure>
+        <h3>Capture &amp; organize videos</h3>
+        <p>Record or import; group into collections; lock private.</p>
+      </li>
+      <li class="feature-card">
+        <figure><img src="assets/screenshots/tag-with-notes.png" alt="Editor showing notes attached to beat ranges of a video" loading="lazy" /></figure>
+        <h3>Tag videos with notes</h3>
+        <p>Anchor notes to specific moments and beat ranges.</p>
+      </li>
+      <li class="feature-card">
+        <figure><img src="assets/screenshots/assign-counts.png" alt="Beat-count assignment interface" loading="lazy" /></figure>
+        <h3>Assign beat counts</h3>
+        <p>Map measure-aware counts so playback aligns with the music.</p>
+      </li>
+      <li class="feature-card">
+        <figure><img src="assets/screenshots/view-notes.png" alt="Playback view with synchronized notes scrolling alongside the video" loading="lazy" /></figure>
+        <h3>Synchronized note view</h3>
+        <p>During playback, notes scroll in lockstep with the video.</p>
+      </li>
+      <li class="feature-card">
+        <figure><img src="assets/screenshots/smart-search.png" alt="Smart search results screen" loading="lazy" /></figure>
+        <h3>Smart search</h3>
+        <p>Find moves across your library by description or tag.</p>
+      </li>
+      <li class="feature-card">
+        <figure><img src="assets/screenshots/publish-video.png" alt="Publish flow showing visibility options" loading="lazy" /></figure>
+        <h3>Publish &amp; share</h3>
+        <p>Push videos public or keep them private to your library.</p>
+      </li>
+    </ol>
+
+    <p class="plus-more-label">Plus more:</p>
+    <ul class="plus-more-chips" aria-label="Additional features">
+      <li>Practice mode w/ metronome</li>
+      <li>Voice dictation</li>
+      <li>AI coach chat</li>
+      <li>Social feed</li>
+      <li>Learn mode</li>
+      <li>Profile</li>
+      <li>Push notifications</li>
+      <li>Offline mode</li>
+    </ul>
+  </section>
+
+  <section class="stack" data-reveal aria-labelledby="stack-heading">
+    <h2 id="stack-heading">The stack</h2>
+    <p class="section-lede">Real backend, not just mocks. Eight integrated services, server-signed uploads, offline-capable from day one.</p>
+
+    <div class="stack-diagram" id="stack-diagram-mount" aria-label="Architecture diagram"></div>
+
+    <ul class="tech-badges" aria-label="Technologies used">
+      <li>Flutter</li>
+      <li>Dart</li>
+      <li>Riverpod</li>
+      <li>GoRouter</li>
+      <li>Freezed</li>
+      <li>Supabase</li>
+      <li>PowerSync</li>
+      <li>Postgres</li>
+      <li>Cloudflare R2</li>
+      <li>Coconut</li>
+      <li>Gemini</li>
+      <li>Deepgram</li>
+      <li>FFmpeg</li>
+    </ul>
+  </section>
+
+  <section class="engineering" data-reveal aria-labelledby="engineering-heading">
+    <h2 id="engineering-heading">Engineering highlights</h2>
+
+    <ol class="eng-grid">
+      <li class="eng-card">
+        <h3>Offline-first sync (PowerSync ↔ Postgres ↔ SQLite)</h3>
+        <p>Set up a dedicated <code>powersync_role</code> with idempotent grants tracked as migrations, configured logical replication between Supabase Postgres and the on-device SQLite, and shaped sync rules so videos, collections, spans, and notes all work offline and reconcile on reconnect.</p>
+        <p class="tricky"><strong>Tricky bit:</strong> replication-role permissions, RLS interaction, and ensuring the local schema stayed tightly coupled to the server schema.</p>
+      </li>
+      <li class="eng-card">
+        <h3>AI dictation with an arbiter pattern (Deepgram)</h3>
+        <p>The <code>deepgram-token</code> edge function mints short-lived tokens so the Flutter app streams audio directly to Deepgram. A custom <em>arbiter</em> decides when to promote partial transcripts into the underlying text field — building a generic <code>DictatableTextField</code> any surface (notes, descriptions) can adopt.</p>
+        <p class="tricky"><strong>Tricky bit:</strong> overlapping partials, span anchoring, and not blowing away in-progress edits.</p>
+      </li>
+      <li class="eng-card">
+        <h3>Server-signed video uploads (R2 + edge function)</h3>
+        <p>Started with client-signed S3 URLs, then refactored: an <code>r2-upload</code> edge function signs presigned URLs server-side and enforces <code>assertKeyOwnedByCaller</code> so a user can only write to their own keyspace.</p>
+        <p class="tricky"><strong>Tricky bit:</strong> the SigV4 canonical query string must be sorted by ASCII bytes, not locale — caught with a unit test after a quietly-broken signature.</p>
+      </li>
+      <li class="eng-card">
+        <h3>AI coach agent (Gemini)</h3>
+        <p>An <code>ai-agent</code> edge function wraps Google AI Studio's Gemini for coach-style sessions. Agent sessions persist in Postgres, video metadata feeds in for context, and the chat surface lives natively inside the app.</p>
+        <p class="tricky"><strong>Tricky bit:</strong> session-aware prompting, streaming responses through the edge function, and graceful auth-token handling with <code>verify_jwt = false</code> in <code>config.toml</code>.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="about" data-reveal aria-labelledby="about-heading">
+    <h2 id="about-heading">Get in touch</h2>
+    <ul class="contact-list">
+      <li><span class="contact-label">Email</span><a href="mailto:pequnio3@gmail.com">pequnio3@gmail.com</a></li>
+      <li><span class="contact-label">LinkedIn</span><a href="https://www.linkedin.com/in/blake-c-b86b7a40/" target="_blank" rel="noopener">linkedin.com/in/blake-c</a></li>
+      <li><span class="contact-label">GitHub</span><a href="https://github.com/pequnio3" target="_blank" rel="noopener">github.com/pequnio3</a></li>
+    </ul>
+    <p class="ip-notice">Source code is private during active development. Happy to walk through it on request.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 Blake Carpenter</p>
+  <p class="footer-meta">Built in HTML, hosted on GitHub Pages.</p>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
