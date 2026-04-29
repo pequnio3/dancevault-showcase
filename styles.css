@@ -175,20 +175,72 @@ main > section, header.hero { max-width: var(--max-width); margin: 0 auto; paddi
 .feature-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 40px;
-  margin: 0 0 48px;
+  gap: 80px;
+  margin: 0 0 64px;
 }
-@media (min-width: 768px) {
-  .feature-grid { grid-template-columns: 1fr 1fr 1fr; gap: 56px 24px; }
+@media (min-width: 768px) { .feature-grid { gap: 112px; } }
+
+.feature-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "image"
+    "title"
+    "desc";
+  gap: 16px;
+  justify-items: center;
 }
-.feature-card { display: grid; gap: 12px; }
-.feature-card h3     { color: var(--text); margin: 0; }
-.feature-card figure { margin: 0; }
+.feature-card h3 {
+  grid-area: title;
+  color: var(--text);
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+.feature-card p {
+  grid-area: desc;
+  color: var(--text-muted);
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 56ch;
+}
+.feature-card figure { grid-area: image; margin: 0; }
 .feature-card img {
   width: 100%;
-  border-radius: 18px;
+  max-width: 280px;
+  border-radius: 24px;
   border: 1px solid var(--border);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Desktop: 2-column row per feature. Image alternates outside per row.
+   Odd cards → image left. Even cards → image right. Vertical center. */
+@media (min-width: 768px) {
+  .feature-card {
+    grid-template-columns: 320px 1fr;
+    grid-template-areas:
+      "image title"
+      "image desc";
+    gap: 12px 56px;
+    align-content: center;
+    justify-items: stretch;
+  }
+  .feature-card h3 { font-size: 32px; align-self: end; }
+  .feature-card p  { align-self: start; }
+  .feature-card figure {
+    align-self: center;
+    justify-self: start;
+    width: 100%;
+  }
+  .feature-card img { max-width: 320px; }
+  .feature-card:nth-child(even) {
+    grid-template-columns: 1fr 320px;
+    grid-template-areas:
+      "title image"
+      "desc  image";
+  }
+  .feature-card:nth-child(even) figure { justify-self: end; }
 }
 
 .plus-more-label { font-size: 14px; color: var(--text-muted); margin: 0 0 12px; }
