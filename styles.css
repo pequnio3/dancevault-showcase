@@ -1,0 +1,57 @@
+:root {
+  --bg: #0A0A0F;
+  --surface: #15151C;
+  --border: #26262E;
+  --text: #F5F5F7;
+  --text-muted: #9A9AA8;
+  --accent: #9C7AFF;
+  --accent-dim: #6B4FCC;
+
+  --max-width: 1100px;
+  --gutter: 24px;
+  --section-y: 96px;
+  --radius: 16px;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--text); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+ul, ol { list-style: none; padding: 0; margin: 0; }
+code { font-family: var(--font-mono); font-size: 0.92em; color: var(--text); background: var(--surface); padding: 1px 6px; border-radius: 4px; }
+
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin: 0; }
+h2 { font-size: 36px; margin-bottom: 12px; }
+h3 { font-size: 20px; margin: 0 0 8px; }
+p { margin: 0 0 12px; }
+
+main, header, footer { padding-left: var(--gutter); padding-right: var(--gutter); }
+main > section, header.hero { max-width: var(--max-width); margin: 0 auto; padding-top: var(--section-y); padding-bottom: var(--section-y); }
+
+@media (max-width: 768px) {
+  :root { --section-y: 64px; }
+  body { font-size: 16px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 18px; }
+}
+
+/* fade-in on scroll */
+[data-reveal] { opacity: 0; transform: translateY(8px); transition: opacity 500ms ease-out, transform 500ms ease-out; }
+[data-reveal].is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal], [data-reveal].is-visible { opacity: 1; transform: none; transition: none; }
+}
